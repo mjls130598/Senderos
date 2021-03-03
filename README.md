@@ -8,6 +8,6 @@ Se va a desarrollar a lo largo del segundo cuatrimestre del curso 2020/2021 por 
 
 Preparar los cimientos del proyecto: 
 
- * Crear el contenedor *Docker* con un fichero [*Dockerfile*](https://github.com/mjls130598/Senderos/Dockerfile) para utilizar *Django* junto *Python*.
+ * Crear el contenedor *Docker* con un fichero [*Dockerfile*](https://github.com/mjls130598/Senderos/blob/main/Dockerfile) para utilizar *Django* junto *Python*.
 
- * Crear el archivo [*docker-compose*](https://github.com/mjls130598/Senderos/docker-compose.yml) para utilizarlo como entorno de desarrollo del proyecto.
+ * Crear el archivo [*docker-compose*](https://github.com/mjls130598/Senderos/blob/main/docker-compose.yml) para utilizarlo como entorno de desarrollo del proyecto.
