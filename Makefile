@@ -1,5 +1,8 @@
 up:
-	docker-compose up
+	sudo docker-compose up
 
 build:
-	docker-compose build
+	sudo docker-compose build
+
+exec:
+	sudo docker-compose exec web /bin/sh
