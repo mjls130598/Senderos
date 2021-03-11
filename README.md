@@ -19,3 +19,5 @@ Preparar los cimientos del proyecto:
 Añadir la base de datos ([MongoDB](https://docs.mongodb.com/guides/)) al proyecto:
 
 * Se añadirá dentro de [requirements.txt](https://github.com/mjls130598/Senderos/blob/main/requirements.txt) la biblioteca [mongo-engine](http://mongoengine.org/).
+
+* Se añade dentro de [docker-compose](https://github.com/mjls130598/Senderos/blob/main/docker-compose.yml) los servicios necesarios para la base de datos.
