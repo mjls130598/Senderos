@@ -11,6 +11,10 @@ class Comentarios(EmbeddedDocument):
 	autor     = StringField(max_length=120, required=True)
 	fecha     = DateTimeField(default=datetime.now())
 
+class Fotos(EmbeddedDocument):
+	foto = StringField(required=True)
+	pie = StringField(max_length=120, required=True)
+
 class Excursión(Document):
 	nombre      = StringField(max_length=120, required=True)
 	descripción = StringField(required=True)
@@ -19,6 +23,7 @@ class Excursión(Document):
 	tags        = ListField(StringField(max_length=20))
 	duración    = IntField(default=0)
 	comentarios = ListField(EmbeddedDocumentField(Comentarios))
+	fotos 		= ListField(EmbeddedDocumentField(Fotos)) 
 
 
 comentarios = [
@@ -32,8 +37,15 @@ comentarios = [
 	}
 ]
 
+fotos = [
+	{
+		"foto" : "./prado.png",
+		"pie" : "Prado verde"
+	}
+]
+
 excursión = Excursión(nombre="Prueba", descripción="asfd asf asdf", likes=1, 
-                      tags=['fácil'], comentarios=comentarios)
+                      tags=['fácil'], comentarios=comentarios, fotos=fotos)
 excursión.save() # Para escribir en la BD
 
 
