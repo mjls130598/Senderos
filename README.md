@@ -22,4 +22,4 @@ Añadir la base de datos ([MongoDB](https://docs.mongodb.com/guides/)) al proyec
 
 * Se añade dentro de [docker-compose](https://github.com/mjls130598/Senderos/blob/main/docker-compose.yml) los servicios necesarios para la base de datos. Se pone como almacenamiento de los datos un path dentro del dispositivo puesto que *MongoDB* no detecta los dispositivos externos.
 
-
+* Se crea el archivo [populate.py](https://github.com/mjls130598/Senderos/commit/eaa1e31a9d96cf2b8cace9ab9bcff84ea195c642) que trabaja como base de datos del sistema en donde se guardan las excursiones.
