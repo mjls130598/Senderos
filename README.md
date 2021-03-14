@@ -20,4 +20,6 @@ Añadir la base de datos ([MongoDB](https://docs.mongodb.com/guides/)) al proyec
 
 * Se añadirá dentro de [requirements.txt](https://github.com/mjls130598/Senderos/blob/main/requirements.txt) la biblioteca [mongo-engine](http://mongoengine.org/).
 
-* Se añade dentro de [docker-compose](https://github.com/mjls130598/Senderos/blob/main/docker-compose.yml) los servicios necesarios para la base de datos.
+* Se añade dentro de [docker-compose](https://github.com/mjls130598/Senderos/blob/main/docker-compose.yml) los servicios necesarios para la base de datos. Se pone como almacenamiento de los datos un path dentro del dispositivo puesto que *MongoDB* no detecta los dispositivos externos.
+
+

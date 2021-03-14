@@ -16,7 +16,9 @@ services:
     ports: 
       - 27017:27017
     volumes:
-      - ./datos_db:/data/db
+      -  /home/mjesus/datos_db:/data/db # Al estar utilizando un disco duro externo
+
+  # No se puede estar trabajando con MongoDB dentro de un disco duro externo
 
   mongo-express:
     image: mongo-express
