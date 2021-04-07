@@ -25,3 +25,15 @@ Añadir la base de datos ([MongoDB](https://docs.mongodb.com/guides/)) al proyec
 * Se crea el archivo [populate.py](https://github.com/mjls130598/Senderos/commit/eaa1e31a9d96cf2b8cace9ab9bcff84ea195c642) que trabaja como base de datos del sistema en donde se guardan las excursiones.
 
 * Para restaurar y realizar el backup de la base de datos, se debe ejecutar **mongodump** (backup) y **mongorestore** (restauración) con la instancia de *MongoDB* ejecutándose según indica la página oficial de *MongoDB* encargado en [esos temas](https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/).
+
+## Tarea 2
+
+Se empieza a utilizar *Django* realizando las siguientes tareas:
+
+* Se realiza la configuración correspondiente al proyecto creado modificando el archivo [settings.py](https://github.com/mjls130598/Senderos/blob/main/mi_sitio_web/settings.py):
+
+    * Se ha indicado la zona horaria y el idioma del proyecto.
+    * Se indica dónde se van a ubicar los documentos estáticos.
+    * Se le dice los distintos hosts con los que se puede conectar al proyecto.
+
+* Se crea el modelo *Excursión* en el fichero [models.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/models.py) para poder manejar sus datos en la aplicación.
