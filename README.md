@@ -40,7 +40,6 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
 
     * Se escribe el modelo de *Comentario*.
     * Se inserta el modelo *Foto*.
-    * Se añade el modelo *Excursión*-
 
 * Se crea una aplicación que contiene las rutas de Granada. Dicha aplicación está almacenada en el directorio [rutas_granada](https://github.com/mjls130598/Senderos/tree/main/rutas_granada).
 
