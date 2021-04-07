@@ -36,7 +36,11 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
     * Se indica dónde se van a ubicar los documentos estáticos.
     * Se le dice los distintos hosts con los que se puede conectar al proyecto.
 
-* Se crea el modelo *Excursión* en el fichero [models.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/models.py) para poder manejar sus datos en la aplicación.
+* Se crean los modelos necesarios en el fichero [models.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/models.py) para poder manejar sus datos en la aplicación.
+
+    * Se escribe el modelo de *Comentario*.
+    * Se inserta el modelo *Foto*.
+    * Se añade el modelo *Excursión*-
 
 * Se crea una aplicación que contiene las rutas de Granada. Dicha aplicación está almacenada en el directorio [rutas_granada](https://github.com/mjls130598/Senderos/tree/main/rutas_granada).
 
@@ -44,7 +48,7 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
 
 * Crear los archivos estáticos que se encuentran dentro del directorio [static](https://github.com/mjls130598/Senderos/blob/main/static).
 
-* Se añaden las rutas para poder acceder la información en [urls.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/urls.py).
+* Se añaden las rutas para poder acceder la información en [urls.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/urls.py). Para que sepa qué rutas debe acceder de la aplicación se realizan los siguientes cambios en [urls.py](https://github.com/mjls130598/Senderos/blob/main/mi_sitio_web/urls.py) del proyecto.
 
 * Poder acceder al panel de administración de la aplicación se debe crear un usuario. Para ello se accede dentro del bash del contenedor y se escribe el siguiente comando y se siguen los pasos que se le indican durante su ejecución:
 ```

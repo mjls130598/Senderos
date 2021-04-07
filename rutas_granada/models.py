@@ -1,6 +1,7 @@
 from django.db import models
+from datetime import datetime
 
-class Excursión(models.Model):
-	nombre      = models.CharField(max_length=100)
-	descripción = models.CharField(max_length=1000)
-	likes       = models.IntegerField(default=0)
+class Comentarios(models.Model):
+	contenido = models.TextField()
+	autor     = models.CharField(max_length=120)
+	fecha     = models.DateTimeField(default=datetime.now())
