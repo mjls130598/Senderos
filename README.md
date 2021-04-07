@@ -43,3 +43,5 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
 * Se añaden las correspondientes vistas (que se encargan de recoger los datos y mostrárselos al cliente) dentro del archivo [views.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/views.py).
 
 * Crear los archivos estáticos que se encuentran dentro del directorio [static](https://github.com/mjls130598/Senderos/blob/main/static).
+
+* Se añaden las rutas para poder acceder la información en [urls.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/urls.py).
