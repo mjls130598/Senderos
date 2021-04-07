@@ -45,3 +45,8 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
 * Crear los archivos estáticos que se encuentran dentro del directorio [static](https://github.com/mjls130598/Senderos/blob/main/static).
 
 * Se añaden las rutas para poder acceder la información en [urls.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/urls.py).
+
+* Poder acceder al panel de administración de la aplicación se debe crear un usuario. Para ello se accede dentro del bash del contenedor y se escribe el siguiente comando y se siguen los pasos que se le indican durante su ejecución:
+```
+python manage.py migrate
+``` 
