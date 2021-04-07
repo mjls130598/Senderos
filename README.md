@@ -37,3 +37,7 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
     * Se le dice los distintos hosts con los que se puede conectar al proyecto.
 
 * Se crea el modelo *Excursión* en el fichero [models.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/models.py) para poder manejar sus datos en la aplicación.
+
+* Se crea una aplicación que contiene las rutas de Granada. Dicha aplicación está almacenada en el directorio [rutas_granada](https://github.com/mjls130598/Senderos/tree/main/rutas_granada).
+
+* Se añaden las correspondientes vistas (que se encargan de recoger los datos y mostrárselos al cliente) dentro del archivo [views.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/views.py).
