@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import mongoengine
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rutas_granada.apps.RutasGranadaConfig'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'mi_sitio_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'static/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,6 +83,7 @@ DATABASES = {
     }
 }
 
+mongoengine.connect('senderos', host='mongo')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
