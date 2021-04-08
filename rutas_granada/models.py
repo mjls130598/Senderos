@@ -1,21 +1,22 @@
-from django.db import models
+from mongoengine import Document, EmbeddedDocument	
+from mongoengine.fields import EmbeddedDocumentField, StringField, ListField, IntField, DateTimeField
 from datetime import datetime
 
-class Comentario(models.Model):
-	contenido = models.TextField()
-	autor     = models.CharField(max_length=120)
-	fecha     = models.DateTimeField(default=datetime.now())
+class Comentarios(EmbeddedDocument):
+	contenido = StringField(required=True)
+	autor     = StringField(max_length=120, required=True)
+	fecha     = DateTimeField(default=datetime.now())
 
-class Foto(models.Model):
-	foto = models.CharField()
-	pie = models.CharField(max_length=120)
+class Fotos(EmbeddedDocument):
+	foto = StringField(required=True)
+	pie = StringField(max_length=120, required=True)
 
-class Excursion(models.Model):
-	nombre      = models.CharField(max_length=120)
-	descripción = models.TextField()
-	likes       = models.IntegerField(default=0)
-	visitas     = models.IntegerField(default=0)
-	tags        = models.ListField(models.CharField(max_length=20))
-	duración    = models.IntegerField(default=0)
-	comentarios = models.ForeignKey(Comentario, on_delete=models.CASCADE)
-	fotos 		= models.ForeignKey(Foto, on_delete=models.CASCADE) 
+class Excursión(Document):
+	nombre      = StringField(max_length=120, required=True)
+	descripción = StringField(required=True)
+	likes       = IntField(default=0)
+	visitas     = IntField(default=0)
+	tags        = ListField(StringField(max_length=20))
+	duración    = IntField(default=0)
+	comentarios = ListField(EmbeddedDocumentField(Comentarios))
+	fotos 		= ListField(EmbeddedDocumentField(Fotos)) 
