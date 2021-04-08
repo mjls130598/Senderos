@@ -32,8 +32,9 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
 
 * Se realiza la configuración correspondiente al proyecto creado modificando el archivo [settings.py](https://github.com/mjls130598/Senderos/blob/main/mi_sitio_web/settings.py):
 
+    * Se conecta a la base de datos de MongoDB.
     * Se ha indicado la zona horaria y el idioma del proyecto.
-    * Se indica dónde se van a ubicar los documentos estáticos.
+    * Se indica dónde se van a ubicar los documentos estáticos y los templates.
     * Se le dice los distintos hosts con los que se puede conectar al proyecto.
 
 * Se crean los modelos necesarios en el fichero [models.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/models.py) para poder manejar sus datos en la aplicación.
