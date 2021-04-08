@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rutas_granada import models
 
 def index(request):
 	return HttpResponse('Hola desde index')
 					
 def excursion(request, número):
-	detalle = Consulta_Model(excursion=número) 
+	excursión = models.Excursión.objects[número - 1] 
 	context = {
-		'excursion': número, # se pasan las variables al template
-		'detalle': detalle
+		'excursión': excursión
 	}
-	return render(request, "excursion.html", context)
+	return render(request, "rutas_granada/excursion.html", context)
+
+def excursion_todas(request):
+	context = {
+		'excursiones': models.Excursión.objects.all()
+	}
+	return render(request, "rutas_granada/excursiones.html", context)
