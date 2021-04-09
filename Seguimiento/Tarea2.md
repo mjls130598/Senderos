@@ -27,3 +27,4 @@ Se empieza a utilizar *Django* realizando las siguientes tareas:
 ```
 python manage.py createsuperuser
 ``` 
+* Se comprueba que funciona correctamente la aplicación realizando sus correspondientes tests. Dichos tests se encuentran en el fichero [tests.py](https://github.com/mjls130598/Senderos/blob/main/rutas_granada/tests.py) de la aplicación *rutas_granada*.
