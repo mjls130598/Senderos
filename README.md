@@ -11,3 +11,4 @@ Se va a intentar realizar una página similar a la página [TurGranada](https://
 * [**Tarea 0**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea0.md): Creación del proyecto en *Django*.
 * [**Tarea 1**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea1.md): Creación e implementación de la base de datos en *MongoDB*.
 * [**Tarea 2**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea2.md): Creación de la aplicación, incluyendo los modelos que se encuentren en ella, sus visualizaciones y sus rutas correspondientes.
+* [**Tarea 3**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea3.md): Creación del estilo en CSS del sitio web.

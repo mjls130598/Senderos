@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from rutas_granada import models
 
 def index(request):
-	return HttpResponse('Hola desde index')
+	return render(request, "base.html")
 					
-def excursion(request, número):
-	excursión = models.Excursión.objects[número - 1] 
+def excursion(request, id):
+	excursión = models.Excursión.objects.get(id = id) 
 	context = {
 		'excursión': excursión
 	}
