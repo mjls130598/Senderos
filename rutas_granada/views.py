@@ -17,3 +17,11 @@ def excursion_todas(request):
 		'excursiones': models.Excursión.objects.all()
 	}
 	return render(request, "rutas_granada/excursiones.html", context)
+
+def buscar(request):
+
+	context = {
+		'excursiones': models.Excursión.objects.all()
+	}
+
+	return render(request, "rutas_granada/buscar.html", context)
