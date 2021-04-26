@@ -1,11 +1,18 @@
 {% block content %}
-<div class="cards" style="width: 18rem;">
-	<img src="{{ excursión.fotos.first.foto }}" class="card-img-top"/>
-	<div class="card-body">
-		<h5 class="card-title">{{ excursión.nombre }}</h5>
-		<h6 class="card-subtitle">{{ excursión.tags }}</h6>
-		<p class="card-text">{{ excursión.descripción }}</p>
-		<a class = "btn btn-primary" href= "/excursion/{{ excursión.id }}">Más detalle</a>
+	<div class="card col" id="excursion">
+		{% load static %}
+		{% with 'rutas_granada/images/'|add:excursión.fotos.0.foto as image_static %}
+		<img src="{% static image_static %}" class="card-img-top" alt="{{ excursión.fotos.0.pie }}">
+		{% endwith %}
+		<div class="card-body">
+			<h5 class="card-title">{{ excursión.nombre }}</h5>
+			<h6 class="card-subtitle mb-2 text-muted">
+				{% for tag in excursión.tags %}
+					#{{tag}}
+				{% endfor %}
+			</h6>
+			<p class="card-text">{{ excursión.descripción }}</p>
+			<a href="/excursion/{{ excursión.id }}" class="btn btn-primary enlace-excursion">Más detalle</a>
+		</div>
 	</div>
-</div>
 {% endblock %}

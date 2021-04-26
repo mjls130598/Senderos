@@ -1,4 +1,14 @@
 {% extends "../base.html" %}
-{% for excursión in excursiones %}
-    {% include "./excursion.html" %}
-{% endfor%}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'rutas_granada/css/cards.css'%}">
+{% endblock %}
+{% block content %}
+    <div class="container excursiones">
+        <div class="row row-cols-3">
+            {% for excursión in excursiones %}
+                {% include "./excursion.html" %}
+            {% endfor%}
+        </div>
+    </div>
+{% endblock %}
