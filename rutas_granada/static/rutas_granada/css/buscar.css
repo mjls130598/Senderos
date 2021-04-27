@@ -1,5 +1,4 @@
-.col-10 {
-    -ms-flex: 0 0 90%;
-    flex: 0 0 90%;
-    max-width: 90%;
+.titulo{
+    color:brown;
+    margin-bottom:2%;
 }
