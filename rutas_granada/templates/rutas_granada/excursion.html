@@ -14,11 +14,12 @@
 
 <div class="container botones">
 
-    <form name="delete" method="DELETE" action="delete">
-        <input type="hidden" name="id" value="{{ excursión.id }}">
-      <button class="btn btn-primary" type="submit"><i class="bi bi-trash-fill"></i></button>
+    <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="method" value="delete">
+        <button class="btn btn-primary" type="submit"><i class="bi bi-trash-fill"></i></button>
     </form>
-    
+
     <a class="btn btn-primary" href="#" role="button">
         <i class="bi bi-pencil-fill"></i>
     </a>
