@@ -87,15 +87,9 @@
     </div>
     {% endfor %}
 
-    <form class="nuevo-comentario jumbotron">
-        <div class="mb-3">
-          <label for="autor" class="form-label font-weight-bold">Autor</label>
-          <input type="text" class="form-control" id="autor">
-        </div>
-        <div class="mb-3">
-          <label for="contenido" class="form-label font-weight-bold">Comentario</label>
-          <textarea type="textarea" class="form-control" id="contenido"></textarea>
-        </div>
+    <form class="nuevo-comentario jumbotron" method="POST">
+        {% csrf_token %}
+        {{ comentario }}
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
 
