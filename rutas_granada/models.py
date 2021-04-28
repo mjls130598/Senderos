@@ -17,6 +17,5 @@ class Excursión(Document):
 	likes       = IntField(default=0)
 	visitas     = IntField(default=0)
 	tags        = ListField(StringField(max_length=20))
-	duración    = IntField(default=0)
 	comentarios = ListField(EmbeddedDocumentField(Comentarios))
 	fotos 		= ListField(EmbeddedDocumentField(Fotos)) 

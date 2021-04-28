@@ -7,9 +7,11 @@ def index(request):
 	return render(request, "base.html")
 					
 def excursion(request, id):
+	excursión = models.Excursión.objects.get(id = id)
 
 	if request.method == "GET":
-		excursión = models.Excursión.objects.get(id = id) 
+		excursión.visitas = excursión.visitas + 1
+		excursión.save()
 		comentarioForm = ComentarioForm()
 		context = {
 			'excursión': excursión,
@@ -19,7 +21,6 @@ def excursion(request, id):
 		return render(request, "rutas_granada/excursion.html", context)
 
 	if request.method == "POST":
-		excursión = models.Excursión.objects.get(id = id)
 
 		if(request.POST.get("method", "") == "delete"):
 			excursión.delete()
@@ -30,7 +31,7 @@ def excursion(request, id):
 			excursión.save()
 			return HttpResponseRedirect("/excursion/" + id)
 
-		else:
+		if(request.POST.get("method", "") == "comentario"):
 			form = ComentarioForm(request.POST)
 
 			if form.is_valid():

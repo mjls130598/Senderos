@@ -91,6 +91,7 @@
 
     <form class="nuevo-comentario jumbotron" method="POST">
         {% csrf_token %}
+        <input type="hidden" name="method" value="comentario">
         {{ comentario }}
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
