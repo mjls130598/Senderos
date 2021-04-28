@@ -1,3 +1,7 @@
+{% block static %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'rutas_granada/css/cards.css'%}">
+{% endblock %}
 {% block content %}
 	<div class="card col" id="excursion">
 		{% load static %}
