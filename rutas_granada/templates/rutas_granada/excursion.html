@@ -62,9 +62,11 @@
             </h5>
         </div>
         <div class="col row likes align-items-center">
-            <a class="btn btn-primary col" href="#" role="button">
-                <i class="bi bi-hand-thumbs-up-fill"></i>
-            </a>
+            <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="method" value="like">
+                <button class="btn btn-primary" type="submit"><i class="bi bi-hand-thumbs-up-fill"></i></i></button>
+            </form>
             <div class="container col ">
                 <p class="likes">{{ excursión.likes }}</p>
             </div>

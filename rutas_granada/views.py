@@ -25,6 +25,11 @@ def excursion(request, id):
 			excursión.delete()
 			return HttpResponseRedirect("/excursion/")
 
+		if(request.POST.get("method", "") == "like"):
+			excursión.likes = excursión.likes + 1
+			excursión.save()
+			return HttpResponseRedirect("/excursion/" + id)
+
 		else:
 			form = ComentarioForm(request.POST)
 
