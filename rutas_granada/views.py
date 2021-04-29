@@ -16,7 +16,13 @@ def excursion(request, id):
 		excursión.save()
 		context = {
 			'excursión': excursión,
-			'comentario': ComentarioForm()
+			'comentario': ComentarioForm(),
+			'formulario': ExcursionForm({
+				"nombre": excursión.nombre, 
+				"descripcion": excursión.descripción,
+				"tags": ' '.join([str(elem) for elem in excursión.tags]),
+				"pie": excursión.fotos[0].pie
+			}),
 		}
 
 		return render(request, "rutas_granada/excursion.html", context)
@@ -80,7 +86,7 @@ def añadir_excursion(request):
 
 
 			excursión = models.Excursión(nombre = form.cleaned_data['nombre'], descripción = form.cleaned_data['descripcion'],
-					tags = [form.cleaned_data['tags']], fotos = fotos)
+					tags = form.cleaned_data['tags'].split(" "), fotos = fotos)
 
 			excursión.save()
 
@@ -92,3 +98,36 @@ def añadir_excursion(request):
 		}
 
 		return render(request, "rutas_granada/excursion-formulario.html", context)
+
+def editar_excursion(request, id):
+
+	excursión = models.Excursión.objects.get(id = id)
+
+	if request.method == "POST":
+		form = ExcursionForm(request.POST, request.FILES)
+		if form.is_valid():
+
+			fotos = []
+			pie = form.cleaned_data['pie']
+			dire = os.path.join(settings.BASE_DIR, "rutas_granada", "static", "rutas_granada","images")
+
+			for image in request.FILES.getlist('fotos'):
+				fotos.append(models.Fotos(foto=image.name, pie = pie))
+				try:
+					file_n = os.path.join(dire, str(image))
+					with open(file_n, "wb+") as dest:
+						for chunk in image.chunks():
+							dest.write(chunk)
+				except:
+					print("ERROR")
+
+
+			excursión.nombre = form.cleaned_data['nombre']
+			excursión.descripción = form.cleaned_data['descripcion']
+			excursión.tags = form.cleaned_data['tags'].split(" ")
+			excursión.fotos = fotos
+
+			excursión.save()
+
+			return HttpResponseRedirect("/excursion/" + id)
+

@@ -1,6 +1,5 @@
 {% extends "../base.html" %}
 {% block content %}
-
     <div class="container jumbotron w-50 justify-content-center">
         <form class="nueva-excursion" method="POST" enctype="multipart/form-data" action="{% url 'añadir' %}">
             {% csrf_token %}

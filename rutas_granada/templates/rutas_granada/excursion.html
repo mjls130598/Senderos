@@ -20,9 +20,32 @@
         <button class="btn btn-primary" type="submit"><i class="bi bi-trash-fill"></i></button>
     </form>
 
-    <a class="btn btn-primary" href="#" role="button">
+    <button id = "editar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <i class="bi bi-pencil-fill"></i>
-    </a>
+    </button>
+      
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar excursión</h5>
+            </div>
+            <form class="nueva-excursion" method="POST" enctype="multipart/form-data" action="{% url 'editar' excursión.id %}">
+                <div class="modal-body">
+                    {% csrf_token %}
+                        <table>
+                            {{ formulario }}
+                        </table>
+                </div>
+                <div class="modal-footer">
+                <button id = "cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container foto">
@@ -109,6 +132,10 @@ $(".carousel-control-prev").click(function(){
 
 $(".carousel-control-next").click(function(){
   $("#carouselExampleControls").carousel("next");
+});
+
+$("#editar").click(function(){
+$("#exampleModal").modal("show");
 });
 </script>
 
