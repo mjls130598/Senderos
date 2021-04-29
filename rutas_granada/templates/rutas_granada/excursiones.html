@@ -12,7 +12,49 @@
         </div>
     </div>
 
-    <div class="container mb-5 px-0">
-        <a class="btn btn-success" href="{% url 'añadir' %}" role="button">Añadir nueva excursión</a>
+    <div class = "container mb-5 px-0">
+        <button id = "crear" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Añadir nueva excursión
+        </button>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir excursión</h5>
+            </div>
+            <form class="nueva-excursion" method="POST" enctype="multipart/form-data" action="{% url 'añadir' %}">
+                <div class="modal-body">
+                    {% csrf_token %}
+                        <table>
+                            {{ formulario }}
+                        </table>
+                </div>
+                <div class="modal-footer">
+                <button id = "cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Activate Carousel
+    $("#carouselExampleControls").carousel();
+
+    // Enable Carousel Controls
+    $(".carousel-control-prev").click(function(){
+        $("#carouselExampleControls").carousel("prev");
+    });
+
+    $(".carousel-control-next").click(function(){
+        $("#carouselExampleControls").carousel("next");
+    });
+
+    $("#crear").click(function(){
+    $("#exampleModal").modal("show");
+    });
+    </script>
 {% endblock %}

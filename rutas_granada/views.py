@@ -52,7 +52,8 @@ def excursion(request, id):
 
 def excursion_todas(request):
 	context = {
-		'excursiones': models.Excursión.objects.all()
+		'excursiones': models.Excursión.objects.all(),
+		'formulario': ExcursionForm()
 	}
 	return render(request, "rutas_granada/excursiones.html", context)
 
@@ -91,13 +92,6 @@ def añadir_excursion(request):
 			excursión.save()
 
 			return HttpResponseRedirect("/excursion/")
-
-	else: 
-		context = {
-			'excursión': ExcursionForm(),
-		}
-
-		return render(request, "rutas_granada/excursion-formulario.html", context)
 
 def editar_excursion(request, id):
 
