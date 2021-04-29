@@ -1,4 +1,4 @@
-from mongoengine import Document, EmbeddedDocument	
+from mongoengine import Document, EmbeddedDocument, ImageField	
 from mongoengine.fields import EmbeddedDocumentField, StringField, ListField, IntField, DateTimeField
 from datetime import datetime
 
@@ -9,7 +9,7 @@ class Comentarios(EmbeddedDocument):
 
 class Fotos(EmbeddedDocument):
 	foto = StringField(required=True)
-	pie = StringField(max_length=120, required=True)
+	pie  = StringField(max_length=120, required=True)
 
 class Excursión(Document):
 	nombre      = StringField(max_length=120, required=True)

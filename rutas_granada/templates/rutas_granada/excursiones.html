@@ -1,21 +1,18 @@
 {% extends "../base.html" %}
 {% block css %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'rutas_granada/css/cards.css'%}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'rutas_granada/css/cards.css'%}">
 {% endblock %}
 {% block content %}
-    <div class="w-100">
-        <form name="añadir" method="POST" action="{% url 'excursiones' %}">
-            {% csrf_token %}
-            <input type="hidden" name="method" value="add">
-            <button class="btn btn-primary" type="submit">Añadir excursión</button>
-        </form>
-    </div>
     <div class="container excursiones">
         <div class="row row-cols-3">
             {% for excursión in excursiones %}
                 {% include "./excursion-cards.html" %}
             {% endfor%}
         </div>
+    </div>
+
+    <div class="container mb-5 px-0">
+        <a class="btn btn-success" href="{% url 'añadir' %}" role="button">Añadir nueva excursión</a>
     </div>
 {% endblock %}

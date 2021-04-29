@@ -35,7 +35,7 @@
                     <div class="carousel-item">
                 {% endif %}
                     {% load static %}
-                    {% with 'rutas_granada/images/'|add:excursión.fotos.0.foto as image_static %}
+                    {% with 'rutas_granada/images/'|add:foto.foto as image_static %}
                         <img src="{% static image_static %}" class="d-block w-100" alt="{{ foto.pie }}">
                     {% endwith %}
                 </div>
@@ -62,7 +62,7 @@
             </h5>
         </div>
         <div class="col row likes align-items-center">
-            <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
+            <form name="like" method="POST" action="{% url 'excursion' excursión.id %}">
                 {% csrf_token %}
                 <input type="hidden" name="method" value="like">
                 <button class="btn btn-primary" type="submit"><i class="bi bi-hand-thumbs-up-fill"></i></i></button>
