@@ -27,8 +27,6 @@ SECRET_KEY = '_1rs23vt1i5p-7=#c+no8n3-b3wq5%pl)@x2vj-6wsi9l6mg&%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -127,3 +125,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Allowed hosts
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '.pythonanywhere.com']
+
+LOGIN_REDIRECT_URL = 'excursion/'
