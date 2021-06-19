@@ -126,5 +126,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '.pythonanywhere.com']
 
-LOGIN_REDIRECT_URL = 'excursion/'
-LOGOUT_REDIRECT_URL = 'excursion/'
+LOGIN_REDIRECT_URL = '/excursion/'
+LOGOUT_REDIRECT_URL = '/excursion/'
