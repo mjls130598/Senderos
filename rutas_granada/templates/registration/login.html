@@ -1,0 +1,41 @@
+{% extends "../base.html" %}
+{% block css %}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'rutas_granada/css/login.css'%}">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <div class="jumbotron text-center p-1">
+        <h4 class="font-weight-bold">Iniciar sesión</h4>
+      </div>
+      <!-- Login Form -->
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+        </tr>
+        </table>
+        
+        <input type="submit" class="btn btn-primary" value="Iniciar sesión">
+        <input type="hidden" name="next" value="{{ next }}">
+        </form>
+  
+    </div>
+  </div>
+
+{% endblock %}

@@ -14,7 +14,7 @@ services:
   mongo:
     image: mongo:4.2
     ports: 
-      - 27017:27017
+      - 27018:27018
     volumes:
       -  /home/mjesus/datos_db:/data/db # Al estar utilizando un disco duro externo
 

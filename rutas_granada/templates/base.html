@@ -46,6 +46,22 @@
       </div>
     </div>
   </nav>
+
+  <div class = "autorizacion text-right m-1">
+    {% if user.is_authenticated %}
+      ¡Bienvenido {{ user.username }}!
+      <a id = "logout" type="button" class="btn btn-primary" href="{% url 'logout' %}">
+        Logout
+      </a>
+    {% else %}
+      <a id = "login" type="button" class="btn btn-primary" href="{% url 'login' %}">
+        Login
+      </a>
+      <a id = "signup" type="button" class="btn btn-primary" href="{% url 'login' %}">
+        Sign Up
+      </a>
+    {% endif %}
+  </div>
 </header>
 <body>
 
