@@ -7,6 +7,9 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+import logging
+
+logger = logging.getLogger(__name__)
 
 def index(request):
 	return render(request, "base.html")
@@ -28,17 +31,23 @@ def excursion(request, id):
 			}),
 		}
 
+		logger.info(f"Obtener excursión {id}")
+
 		return render(request, "rutas_granada/excursion.html", context)
 
 	if request.method == "POST":
 
 		if(request.POST.get("method", "") == "delete"):
 			excursión.delete()
+			logger.info(f"Borrada excursión {id}")
 			return HttpResponseRedirect("/excursion/")
 
 		if(request.POST.get("method", "") == "like"):
 			excursión.likes = excursión.likes + 1
 			excursión.save()
+
+			logger.info(f"Añadido nuevo like en excursión {id}")
+
 			return HttpResponseRedirect("/excursion/" + id)
 
 		if(request.POST.get("method", "") == "comentario"):
@@ -50,14 +59,20 @@ def excursion(request, id):
 
 				excursión.comentarios.append(comentario)
 				excursión.save()
+
+				logger.info(f"Añadido nuevo comentario en excursión {id}")
 			
 				return HttpResponseRedirect("/excursion/" + id)
+
+			else:
+				logger.error(f"No se ha podido crear comentario en excursión {id}")
 
 def excursion_todas(request):
 	context = {
 		'excursiones': models.Excursión.objects.all(),
 		'formulario': ExcursionForm()
 	}
+	logger.info(f"Añadido nuevo comentario en excursión {id}")
 	return render(request, "rutas_granada/excursiones.html", context)
 
 def buscar(request):
@@ -65,6 +80,8 @@ def buscar(request):
 	context = {
 		'excursiones': models.Excursión.objects.all()
 	}
+
+	logger.info(f"Buscar excursión ...")
 
 	return render(request, "rutas_granada/buscar.html", context)
 
@@ -86,7 +103,7 @@ def añadir_excursion(request):
 						for chunk in image.chunks():
 							dest.write(chunk)
 				except:
-					print("ERROR")
+					logger.error("Error con las imágenes de las excursiones")
 
 
 			excursión = models.Excursión(nombre = form.cleaned_data['nombre'], descripción = form.cleaned_data['descripcion'],
@@ -94,7 +111,12 @@ def añadir_excursion(request):
 
 			excursión.save()
 
+			logger.info("Nueva excursión añadida correctamente")
+
 			return HttpResponseRedirect("/excursion/")
+
+		else:
+			logger.error("No se ha podido insertar la nueva excursión")
 
 def editar_excursion(request, id):
 
@@ -116,7 +138,7 @@ def editar_excursion(request, id):
 						for chunk in image.chunks():
 							dest.write(chunk)
 				except:
-					print("ERROR")
+					logger.error("Error con las imágenes de las excursiones")
 
 
 			excursión.nombre = form.cleaned_data['nombre']
@@ -126,23 +148,28 @@ def editar_excursion(request, id):
 
 			excursión.save()
 
+			logger.info(f"Modificada la excursión {id} correctamente")
+
 			return HttpResponseRedirect("/excursion/" + id)
+		else:
+			logger.error(f"Problema al modificar excursión {id}")
 
 def signup(request):
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
-
-		print(form)	
-
 		if form.is_valid():
 			form.save()
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')
 			user = authenticate(username=username, password=raw_password)
 			login(request, user)
+
+			logger.info(f"Usuario {username} creado correctamente")
+
 			return HttpResponseRedirect('/excursion/')
 
 		else:
+			logger.error("No se pudo crear el usuario")
 			return render(request, 'registration/signup.html', {'form': form})
 	else:
 		form = UserCreationForm()
