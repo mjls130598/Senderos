@@ -72,7 +72,7 @@ def excursion_todas(request):
 		'excursiones': models.Excursión.objects.all(),
 		'formulario': ExcursionForm()
 	}
-	logger.info(f"Añadido nuevo comentario en excursión {id}")
+	logger.info(f"Muestra todas las excursiones")
 	return render(request, "rutas_granada/excursiones.html", context)
 
 def buscar(request):
