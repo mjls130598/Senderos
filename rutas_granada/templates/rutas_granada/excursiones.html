@@ -12,11 +12,13 @@
         </div>
     </div>
 
+    {% if user.is_staff %}
     <div class = "container mb-5 px-0">
         <button id = "crear" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Añadir nueva excursión
         </button>
     </div>
+    {% endif %}
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

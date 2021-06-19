@@ -12,6 +12,7 @@
     <h2 class="font-weight-bold">{{excursión.nombre}}</h2>
 </div>
 
+{% if user.is_staff %}
 <div class="container botones">
 
     <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
@@ -47,6 +48,8 @@
         </div>
     </div>
 </div>
+
+{% endif %}
 
 <div class="container foto">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
