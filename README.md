@@ -13,3 +13,4 @@ Se va a intentar realizar una página similar a la página [TurGranada](https://
 * [**Tarea 2**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea2.md): Creación de la aplicación, incluyendo los modelos que se encuentren en ella, sus visualizaciones y sus rutas correspondientes.
 * [**Tarea 3**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea3.md): Creación del estilo en CSS del sitio web.
 * [**Tarea 4**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea4.md): Implementación de formularios y modificaciones en la base de datos.
+* [**Tarea 5**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea5.md): Autentificación, autorización y registro de eventos.
