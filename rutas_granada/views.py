@@ -4,6 +4,9 @@ from rutas_granada import models
 from .forms import ComentarioForm, ExcursionForm
 import os
 from django.conf import settings
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
 
 def index(request):
 	return render(request, "base.html")
@@ -125,3 +128,22 @@ def editar_excursion(request, id):
 
 			return HttpResponseRedirect("/excursion/" + id)
 
+def signup(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+
+		print(form)	
+
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			raw_password = form.cleaned_data.get('password1')
+			user = authenticate(username=username, password=raw_password)
+			login(request, user)
+			return HttpResponseRedirect('/excursion/')
+
+		else:
+			return render(request, 'registration/signup.html', {'form': form})
+	else:
+		form = UserCreationForm()
+		return render(request, 'registration/signup.html', {'form': form})
