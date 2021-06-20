@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rutas_granada.apps.RutasGranadaConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
