@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rutas_granada.apps.RutasGranadaConfig',
     'rest_framework',
+    'rest_framework_mongoengine',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    
+}
 
 LOG_FILE = os.path.join(BASE_DIR, 'Server.log')
 
