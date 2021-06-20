@@ -10,6 +10,8 @@ import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rutas_granada.serializers import ExcursiónModelSerializer
+from rest_framework import status
+from django.http import Http404
 
 logger = logging.getLogger(__name__)
 
@@ -179,11 +181,39 @@ def signup(request):
 
 class ExcursiónView(APIView):
     
-	def get(self, request, id):
-		return Response({"excursion": ExcursiónModelSerializer(models.Excursión.objects.get(id = id)).data})
+	def get_object(self, id):
+		try:
+			return models.Excursión.objects.get(id=id)
+		except models.Excursión.DoesNotExist:
+			raise Http404
+
+	def get(self, request, id, format=None):
+		excursion = self.get_object(id)
+		serializer = ExcursiónModelSerializer(excursion)
+		return Response(serializer.data)
+
+	def put(self, request, id, format=None):
+		excursion = self.get_object(id)
+		serializer = ExcursiónModelSerializer(excursion, data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def delete(self, request, id, format=None):
+		excursion = self.get_object(id)
+		excursion.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ExcursionesView(APIView):
 
 	def get(self, request):
 		return Response({"excursiones": ExcursiónModelSerializer(models.Excursión.objects.all(), many=True).data})
+
+	def post(self, request):
+		serializer = ExcursiónModelSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
