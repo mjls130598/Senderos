@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rutas_granada.serializers import ExcursiónModelSerializer
 from rest_framework import status
 from django.http import Http404
+from rest_framework.permissions import BasePermission, IsAdminUser, SAFE_METHODS
 
 logger = logging.getLogger(__name__)
 
@@ -179,7 +180,13 @@ def signup(request):
 		form = UserCreationForm()
 		return render(request, 'registration/signup.html', {'form': form})
 
+class ReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in SAFE_METHODS
+
 class ExcursiónView(APIView):
+
+	permission_classes = [IsAdminUser|ReadOnly]
     
 	def get_object(self, id):
 		try:
@@ -206,6 +213,8 @@ class ExcursiónView(APIView):
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ExcursionesView(APIView):
+
+	permission_classes = [IsAdminUser|ReadOnly]
 
 	def get(self, request):
 		return Response({"excursiones": ExcursiónModelSerializer(models.Excursión.objects.all(), many=True).data})
