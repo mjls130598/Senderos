@@ -6,8 +6,10 @@ import os
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
-from django.contrib import messages
 import logging
+from rest_framework import viewsets
+from rest_framework import permissions
+from rutas_granada.serializers import ExcursiónSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -174,3 +176,11 @@ def signup(request):
 	else:
 		form = UserCreationForm()
 		return render(request, 'registration/signup.html', {'form': form})
+
+class ExcursiónViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = models.Excursión.objects.all()
+    serializer_class = ExcursiónSerializer
+
