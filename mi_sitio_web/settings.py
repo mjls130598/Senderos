@@ -53,7 +53,9 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 LOG_FILE = os.path.join(BASE_DIR, 'Server.log')
