@@ -8,8 +8,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
   {% load static %}
   <link rel="stylesheet" href="{% static 'rutas_granada/css/base.css'%}">
+  <link rel="stylesheet" href="{% static 'rutas_granada/css/dark-mode.css'%}">
   {% block css %}
   {% endblock %}
 </head>
@@ -47,20 +49,28 @@
     </div>
   </nav>
 
-  <div class = "autorizacion text-right m-1">
-    {% if user.is_authenticated %}
-      <p class="text-success font-weight-bold">¡Bienvenido {{ user.username }}!</p>
-      <a id = "logout" type="button" class="btn btn-dark" href="{% url 'logout' %}">
-        Logout
-      </a>
-    {% else %}
-      <a id = "login" type="button" class="btn btn-primary" href="{% url 'login' %}">
-        Login
-      </a>
-      <a id = "signup" type="button" class="btn btn-success" href="{% url 'signup' %}">
-        Sign Up
-      </a>
-    {% endif %}
+  <div class="botones-modo row mx-0">
+    <div class="custom-control custom-switch m-2 col">
+      <input type="checkbox" class="custom-control-input position-static h-100" id="darkSwitch" />
+      <label class="custom-control-label h-100" for="darkSwitch">Modo noche</label>
+    </div>
+    {% load static %}
+    <script src="{% static 'rutas_granada/dark-mode-switch.min.js'%}"></script>
+    <div class = "autorizacion text-right m-2 col">
+      {% if user.is_authenticated %}
+        <p class="text-success font-weight-bold">¡Bienvenido {{ user.username }}!</p>
+        <a id = "logout" type="button" class="btn btn-dark" href="{% url 'logout' %}">
+          Logout
+        </a>
+      {% else %}
+        <a id = "login" type="button" class="btn btn-primary" href="{% url 'login' %}">
+          Login
+        </a>
+        <a id = "signup" type="button" class="btn btn-success" href="{% url 'signup' %}">
+          Sign Up
+        </a>
+      {% endif %}
+    </div>
   </div>
 </header>
 <body>
@@ -100,3 +110,4 @@
 <!-- Footer -->
 </body>
 </html>
+
