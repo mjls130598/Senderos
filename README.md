@@ -15,3 +15,4 @@ Se va a intentar realizar una página similar a la página [TurGranada](https://
 * [**Tarea 4**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea4.md): Implementación de formularios y modificaciones en la base de datos.
 * [**Tarea 5**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea5.md): Autentificación, autorización y registro de eventos.
 * [**Tarea 6**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea6.md): REST API.
+* [**Tarea 7**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea7.md): JQuery y AJAX.
