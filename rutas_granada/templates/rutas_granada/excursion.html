@@ -15,22 +15,42 @@
 {% if user.is_staff %}
 <div class="container botones">
 
-    <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="method" value="delete">
-        <button class="btn btn-primary" type="submit"><i class="bi bi-trash-fill"></i></button>
-    </form>
-
-    <button id = "editar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="bi bi-pencil-fill"></i>
+    <button id = "borrar" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#borrarModal">
+        <i class="bi bi-trash-fill"></i>
     </button>
       
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="borrarModal" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar excursión</h5>
+                <h5 class="modal-title" id="borrarModalLabel">Borrar excursión</h5>
+            </div>
+            <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <p>¿Estás seguro que deseas borrar <b>{{excursión.nombre}}</b>?</p>
+                    <input type="hidden" name="method" value="delete">
+                </div>
+                <div class="modal-footer">
+                <button id = "cerrar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Sí</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+    <button id = "editar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarModal">
+        <i class="bi bi-pencil-fill"></i>
+    </button>
+      
+    <!-- Modal Editar -->
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarModalLabel">Editar excursión</h5>
             </div>
             <form class="nueva-excursion" method="POST" enctype="multipart/form-data" action="{% url 'editar' excursión.id %}">
                 <div class="modal-body">
@@ -125,21 +145,29 @@
 </div>
 
 <script>
-    // Activate Carousel
-$("#carouselExampleControls").carousel();
 
-// Enable Carousel Controls
-$(".carousel-control-prev").click(function(){
-  $("#carouselExampleControls").carousel("prev");
-});
+    $(document).ready(function(){
+    
+        // Activate Carousel
+        $("#carouselExampleControls").carousel();
 
-$(".carousel-control-next").click(function(){
-  $("#carouselExampleControls").carousel("next");
-});
+        // Enable Carousel Controls
+        $(".carousel-control-prev").click(function(){
+            $("#carouselExampleControls").carousel("prev");
+        });
 
-$("#editar").click(function(){
-$("#exampleModal").modal("show");
-});
+        $(".carousel-control-next").click(function(){
+            $("#carouselExampleControls").carousel("next");
+        });
+
+        $("#editar").click(function(){
+            $("#editarModal").modal("show");
+        });
+
+        $("#borrar").click(function(){
+            $("#borrarModal").modal("show");
+        });
+    })
 </script>
 
 {% endblock %}

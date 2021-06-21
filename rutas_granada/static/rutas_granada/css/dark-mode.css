@@ -17,8 +17,12 @@
   background-color: #495057!important;
 }
 
-[data-theme="dark"] .card, #formContent {
+[data-theme="dark"] .card, [data-theme="dark"] #formContent, [data-theme="dark"] .modal-content{
   background-color: #6c757d!important;
+}
+
+[data-theme="dark"] .btn-secondary{
+  background-color: #495057!important;
 }
 
 [data-theme="dark"] .text-muted {
