@@ -26,14 +26,13 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="borrarModalLabel">Borrar excursión</h5>
             </div>
-            <form name="delete" method="POST" action="{% url 'excursion' excursión.id %}">
+            <form name="delete" method="POST" action="{% url 'borrar' excursión.id %}">
                 <div class="modal-body">
                     {% csrf_token %}
                     <p>¿Estás seguro que deseas borrar <b>{{excursión.nombre}}</b>?</p>
-                    <input type="hidden" name="method" value="delete">
                 </div>
                 <div class="modal-footer">
-                <button id = "cerrar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button id = "cancelar" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Sí</button>
                 </div>
             </form>
@@ -107,12 +106,10 @@
                 {% endfor %}
             </h5>
         </div>
-        <div class="col row likes align-items-center">
-            <form name="like" method="POST" action="{% url 'excursion' excursión.id %}">
-                {% csrf_token %}
-                <input type="hidden" name="method" value="like">
-                <button class="btn btn-primary" type="submit"><i class="bi bi-hand-thumbs-up-fill"></i></i></button>
-            </form>
+        <div class="col row likes-container align-items-center">
+            <button class="btn btn-primary like" type="submit">
+                <i id="emoji" class="bi bi-hand-thumbs-up-fill"></i></i>
+            </button>
             <div class="container col ">
                 <p class="likes">{{ excursión.likes }}</p>
             </div>
@@ -135,9 +132,8 @@
     </div>
     {% endfor %}
 
-    <form class="nuevo-comentario jumbotron" method="POST">
+    <form class="nuevo-comentario jumbotron" method="POST" action="{% url 'aniadir_comentario' excursión.id %}">
         {% csrf_token %}
-        <input type="hidden" name="method" value="comentario">
         {{ comentario }}
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
@@ -160,13 +156,44 @@
             $("#carouselExampleControls").carousel("next");
         });
 
+        // Modal Editar
         $("#editar").click(function(){
             $("#editarModal").modal("show");
         });
 
+        // Modal Borrar
         $("#borrar").click(function(){
             $("#borrarModal").modal("show");
         });
+
+        var like = false;
+
+        // Likes
+        $(".like").click(function(){
+            like = !like; 
+
+            if (like){
+                $("#emoji").removeClass("bi-hand-thumbs-up-fill")
+                $("#emoji").addClass("bi-hand-thumbs-down-fill")
+            }
+
+            else{
+                $("#emoji").removeClass("bi-hand-thumbs-down-fill")
+                $("#emoji").addClass("bi-hand-thumbs-up-fill")
+            }
+
+            ActualizarLike(like)
+        })
+
+        function ActualizarLike(like){
+            $.ajax({
+                url: "{% url 'like' excursión.id %}",
+                data: {'like': like},
+                success: function(respuesta){
+                    $('.likes').html(respuesta);
+                }
+            })
+        }
     })
 </script>
 

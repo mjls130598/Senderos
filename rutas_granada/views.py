@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from rutas_granada import models
 from .forms import ComentarioForm, ExcursionForm
 import os
@@ -40,37 +40,47 @@ def excursion(request, id):
 
 		return render(request, "rutas_granada/excursion.html", context)
 
+def borrar_excursion(request, id):
 	if request.method == "POST":
+		excursión = models.Excursión.objects.get(id = id)
+		excursión.delete()
+		logger.info(f"Borrada excursión {id}")
+		return HttpResponseRedirect("/excursion/")
 
-		if(request.POST.get("method", "") == "delete"):
-			excursión.delete()
-			logger.info(f"Borrada excursión {id}")
-			return HttpResponseRedirect("/excursion/")
+def aniadir_comentario(request, id):
+	if request.method == "POST":
+		excursión = models.Excursión.objects.get(id = id)
+		form = ComentarioForm(request.POST)
 
-		if(request.POST.get("method", "") == "like"):
-			excursión.likes = excursión.likes + 1
+		if form.is_valid():
+			comentario = models.Comentarios(contenido = form.cleaned_data['contenido'], 
+					autor = form.cleaned_data['autor'])
+
+			excursión.comentarios.append(comentario)
 			excursión.save()
 
-			logger.info(f"Añadido nuevo like en excursión {id}")
-
+			logger.info(f"Añadido nuevo comentario en excursión {id}")
+		
 			return HttpResponseRedirect("/excursion/" + id)
 
-		if(request.POST.get("method", "") == "comentario"):
-			form = ComentarioForm(request.POST)
+		else:
+			logger.error(f"No se ha podido crear comentario en excursión {id}")
 
-			if form.is_valid():
-				comentario = models.Comentarios(contenido = form.cleaned_data['contenido'], 
-						autor = form.cleaned_data['autor'])
+def cambiar_like(request, id):
+	excursión = models.Excursión.objects.get(id = id)
+	like = request.GET.get("like")
 
-				excursión.comentarios.append(comentario)
-				excursión.save()
+	if like == "true":
+		excursión.likes += 1
+	else:
+		excursión.likes -= 1
+	
+	excursión.save()
 
-				logger.info(f"Añadido nuevo comentario en excursión {id}")
-			
-				return HttpResponseRedirect("/excursion/" + id)
+	logger.info(f"Modificado likes de excursión {id}")
 
-			else:
-				logger.error(f"No se ha podido crear comentario en excursión {id}")
+	return HttpResponse(excursión.likes)
+		
 
 def excursion_todas(request):
 	context = {
@@ -186,7 +196,7 @@ class ReadOnly(BasePermission):
 
 class ExcursiónView(APIView):
 
-	permission_classes = [IsAdminUser|ReadOnly]
+	permission_classes = [IsAdminUser or ReadOnly]
     
 	def get_object(self, id):
 		try:
@@ -214,7 +224,7 @@ class ExcursiónView(APIView):
 
 class ExcursionesView(APIView):
 
-	permission_classes = [IsAdminUser|ReadOnly]
+	permission_classes = [IsAdminUser or ReadOnly]
 
 	def get(self, request):
 		return Response({"excursiones": ExcursiónModelSerializer(models.Excursión.objects.all(), many=True).data})
