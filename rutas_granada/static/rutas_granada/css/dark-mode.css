@@ -17,7 +17,7 @@
   background-color: #495057!important;
 }
 
-[data-theme="dark"] .card {
+[data-theme="dark"] .card, #formContent {
   background-color: #6c757d!important;
 }
 
