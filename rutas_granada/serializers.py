@@ -4,4 +4,4 @@ from rutas_granada.models import Excursión
 class ExcursiónModelSerializer(serializers.DocumentSerializer):
     class Meta:
         model = Excursión
-        fields = ['nombre', 'descripción', 'tags', 'likes', 'visitas', 'fotos', 'comentarios']
+        fields = ['id','nombre', 'descripción', 'tags', 'likes', 'visitas', 'fotos', 'comentarios']

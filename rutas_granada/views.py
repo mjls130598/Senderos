@@ -196,7 +196,7 @@ class ReadOnly(BasePermission):
 
 class ExcursiónView(APIView):
 
-	permission_classes = [IsAdminUser or ReadOnly]
+	permission_classes = [IsAdminUser | ReadOnly]
     
 	def get_object(self, id):
 		try:
@@ -224,7 +224,7 @@ class ExcursiónView(APIView):
 
 class ExcursionesView(APIView):
 
-	permission_classes = [IsAdminUser or ReadOnly]
+	permission_classes = [IsAdminUser | ReadOnly]
 
 	def get(self, request):
 		return Response({"excursiones": ExcursiónModelSerializer(models.Excursión.objects.all(), many=True).data})
