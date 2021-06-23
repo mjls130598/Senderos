@@ -121,7 +121,7 @@
     <h5>{{ excursión.descripción }}</h5>
 </div>
 
-<div class="container comentarios">
+<div class="container comentarios" id="comentarios">
 
     <h4 class="titulo font-weight-bold">Comentarios</h4>
 
@@ -173,16 +173,22 @@
             like = !like; 
 
             if (like){
-                $("#emoji").removeClass("bi-hand-thumbs-up-fill")
-                $("#emoji").addClass("bi-hand-thumbs-down-fill")
+                $("#emoji").removeClass("bi-hand-thumbs-up-fill");
+                $("#emoji").addClass("bi-hand-thumbs-down-fill");
             }
 
             else{
-                $("#emoji").removeClass("bi-hand-thumbs-down-fill")
-                $("#emoji").addClass("bi-hand-thumbs-up-fill")
+                $("#emoji").removeClass("bi-hand-thumbs-down-fill");
+                $("#emoji").addClass("bi-hand-thumbs-up-fill");
             }
 
-            ActualizarLike(like)
+            ActualizarLike(like);
+
+        })
+
+        $(".nuevo-comentario").submit(function(e){
+            e.preventDefault();
+            ActualizarComentarios($(this).serialize());
         })
 
         function ActualizarLike(like){
@@ -192,7 +198,38 @@
                 success: function(respuesta){
                     $('.likes').html(respuesta);
                 }
-            })
+            });
+        }
+
+        function ActualizarComentarios(data){
+            $.ajax({
+                url:"{% url 'aniadir_comentario' excursión.id %}",
+                data: data,
+                type: 'POST',
+                success: function(respuesta){
+                    $(".nuevo-comentario")[0].reset();
+
+                    var div = document.createElement("div");
+                    div.classList.add("container");
+                    div.classList.add("jumbotron");
+                    div.classList.add("comentario");
+                    var h6 = document.createElement("h6");
+                    h6.classList.add("font-weight-bold");
+                    h6.classList.add("row");
+                    var h6Texto = document.createTextNode(respuesta.autor);
+                    h6.appendChild(h6Texto);
+                    div.appendChild(h6);
+                    var p = document.createElement("p");
+                    p.classList.add("row");
+                    var pTexto = document.createTextNode(respuesta.contenido);
+                    p.appendChild(pTexto);
+                    div.appendChild(p);
+
+                    var contenedorComentarios = document.getElementById("comentarios");
+                    var formulario = document.getElementsByClassName("nuevo-comentario");
+                    contenedorComentarios.insertBefore(div, formulario[0]);
+                }
+            });
         }
     })
 </script>

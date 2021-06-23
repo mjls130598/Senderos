@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from rutas_granada import models
 from .forms import ComentarioForm, ExcursionForm
 import os
@@ -9,7 +9,7 @@ from django.contrib.auth import login, authenticate
 import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rutas_granada.serializers import ExcursiónModelSerializer
+from rutas_granada.serializers import ExcursiónModelSerializer, ComentarioModelSerializer
 from rest_framework import status
 from django.http import Http404
 from rest_framework.permissions import BasePermission, IsAdminUser, SAFE_METHODS
@@ -39,104 +39,7 @@ def excursion(request, id):
 		logger.info(f"Obtener excursión {id}")
 
 		return render(request, "rutas_granada/excursion.html", context)
-
-def borrar_excursion(request, id):
-	if request.method == "POST":
-		excursión = models.Excursión.objects.get(id = id)
-		excursión.delete()
-		logger.info(f"Borrada excursión {id}")
-		return HttpResponseRedirect("/excursion/")
-
-def aniadir_comentario(request, id):
-	if request.method == "POST":
-		excursión = models.Excursión.objects.get(id = id)
-		form = ComentarioForm(request.POST)
-
-		if form.is_valid():
-			comentario = models.Comentarios(contenido = form.cleaned_data['contenido'], 
-					autor = form.cleaned_data['autor'])
-
-			excursión.comentarios.append(comentario)
-			excursión.save()
-
-			logger.info(f"Añadido nuevo comentario en excursión {id}")
-		
-			return HttpResponseRedirect("/excursion/" + id)
-
-		else:
-			logger.error(f"No se ha podido crear comentario en excursión {id}")
-
-def cambiar_like(request, id):
-	excursión = models.Excursión.objects.get(id = id)
-	like = request.GET.get("like")
-
-	if like == "true":
-		excursión.likes += 1
-	else:
-		excursión.likes -= 1
 	
-	excursión.save()
-
-	logger.info(f"Modificado likes de excursión {id}")
-
-	return HttpResponse(excursión.likes)
-		
-
-def excursion_todas(request):
-	context = {
-		'excursiones': models.Excursión.objects.all(),
-		'formulario': ExcursionForm()
-	}
-	logger.info(f"Muestra todas las excursiones")
-	return render(request, "rutas_granada/excursiones.html", context)
-
-def buscar(request):
-
-	context = {
-		'excursiones': models.Excursión.objects.all()
-	}
-
-	logger.info(f"Buscar excursión ...")
-
-	return render(request, "rutas_granada/buscar.html", context)
-
-def añadir_excursion(request):
-
-	if request.method == "POST":
-		form = ExcursionForm(request.POST, request.FILES)
-		if form.is_valid():
-
-			fotos = []
-			pie = form.cleaned_data['pie']
-			dire = os.path.join(settings.BASE_DIR, "rutas_granada", "static", "rutas_granada","images")
-
-			for image in request.FILES.getlist('fotos'):
-				fotos.append(models.Fotos(foto=image.name, pie = pie))
-				try:
-					file_n = os.path.join(dire, str(image))
-					with open(file_n, "wb+") as dest:
-						for chunk in image.chunks():
-							dest.write(chunk)
-				except:
-					logger.error("Error con las imágenes de las excursiones")
-
-
-			excursión = models.Excursión(nombre = form.cleaned_data['nombre'], descripción = form.cleaned_data['descripcion'],
-					tags = form.cleaned_data['tags'].split(" "), fotos = fotos)
-
-			excursión.save()
-
-			logger.info("Nueva excursión añadida correctamente")
-
-			return HttpResponseRedirect("/excursion/")
-
-		else:
-			logger.error("No se ha podido insertar la nueva excursión")
-
-def editar_excursion(request, id):
-
-	excursión = models.Excursión.objects.get(id = id)
-
 	if request.method == "POST":
 		form = ExcursionForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -168,6 +71,100 @@ def editar_excursion(request, id):
 			return HttpResponseRedirect("/excursion/" + id)
 		else:
 			logger.error(f"Problema al modificar excursión {id}")
+
+def borrar_excursion(request, id):
+	if request.method == "POST":
+		excursión = models.Excursión.objects.get(id = id)
+		excursión.delete()
+		logger.info(f"Borrada excursión {id}")
+		return HttpResponseRedirect("/excursion/")
+
+def aniadir_comentario(request, id):
+	if request.is_ajax and request.method == "POST":
+		excursión = models.Excursión.objects.get(id = id)
+		form = ComentarioForm(request.POST)
+
+		if form.is_valid():
+			comentario = models.Comentarios(contenido = form.cleaned_data['contenido'], 
+					autor = form.cleaned_data['autor'])
+
+			excursión.comentarios.append(comentario)
+			excursión.save()
+
+			logger.info(f"Añadido nuevo comentario en excursión {id}")
+
+			serializer = ComentarioModelSerializer(excursión.comentarios[-1])
+			return JsonResponse(serializer.data, safe=False)
+
+		else:
+			logger.error(f"No se ha podido crear comentario en excursión {id}")
+
+def cambiar_like(request, id):
+	excursión = models.Excursión.objects.get(id = id)
+	like = request.GET.get("like")
+
+	if like == "true":
+		excursión.likes += 1
+	else:
+		excursión.likes -= 1
+	
+	excursión.save()
+
+	logger.info(f"Modificado likes de excursión {id}")
+
+	return HttpResponse(excursión.likes)
+		
+
+def excursion_todas(request):
+
+	if request.method == "GET":
+		context = {
+			'excursiones': models.Excursión.objects.all(),
+			'formulario': ExcursionForm()
+		}
+		logger.info(f"Muestra todas las excursiones")
+		return render(request, "rutas_granada/excursiones.html", context)
+	
+	if request.method == "POST":
+		form = ExcursionForm(request.POST, request.FILES)
+		if form.is_valid():
+
+			fotos = []
+			pie = form.cleaned_data['pie']
+			dire = os.path.join(settings.BASE_DIR, "rutas_granada", "static", "rutas_granada","images")
+
+			for image in request.FILES.getlist('fotos'):
+				fotos.append(models.Fotos(foto=image.name, pie = pie))
+				try:
+					file_n = os.path.join(dire, str(image))
+					with open(file_n, "wb+") as dest:
+						for chunk in image.chunks():
+							dest.write(chunk)
+				except:
+					logger.error("Error con las imágenes de las excursiones")
+
+
+			excursión = models.Excursión(nombre = form.cleaned_data['nombre'], descripción = form.cleaned_data['descripcion'],
+					tags = form.cleaned_data['tags'].split(" "), fotos = fotos)
+
+			excursión.save()
+
+			logger.info("Nueva excursión añadida correctamente")
+
+			return HttpResponseRedirect("/excursion/")
+
+		else:
+			logger.error("No se ha podido insertar la nueva excursión")
+
+def buscar(request):
+
+	context = {
+		'excursiones': models.Excursión.objects.all()
+	}
+
+	logger.info(f"Buscar excursión ...")
+
+	return render(request, "rutas_granada/buscar.html", context)
 
 def signup(request):
 	if request.method == 'POST':
