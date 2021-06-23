@@ -5,7 +5,7 @@ urlpatterns = [
 	path('excursion/', views.excursion_todas, name="excursiones"),
 	path('excursion/<str:id>/', views.excursion, name = "excursion"),
 	path('', views.index),
-	path('buscar/', views.buscar),
+	path('buscar/', views.buscar, name="buscar"),
 	path('aniadir/', views.excursion_todas, name="añadir"),
 	path('editar/<str:id>/', views.excursion, name="editar"),
 	path('aniadir_comentario/<str:id>/', views.aniadir_comentario, name="aniadir_comentario"),

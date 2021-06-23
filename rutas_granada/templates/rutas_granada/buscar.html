@@ -11,9 +11,11 @@
 </div>
 
 <div class = "container jumbotron buscador">
-    <form class = "buscador-formulario">
+    <form class = "buscador-formulario" action="{% url 'buscar' %}">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Término de búsqueda" aria-label="Término de búsqueda" aria-describedby="buscador">
+            <input type="text" class="form-control" 
+                placeholder="Término de búsqueda" aria-label="Término de búsqueda" 
+                aria-describedby="buscador" name="busqueda">
             <select class="btn-secondary">
                 <option>Municipio</option>
                 <option>Alcudia</option>
@@ -25,7 +27,7 @@
                 <option>Turón</option>
                 <option>Otro</option>
             </select>
-            <button class="btn btn-primary pull-right" type="button">Buscar <i class="bi bi-search"></i></button>
+            <button class="btn btn-primary pull-right" type="submit">Buscar <i class="bi bi-search"></i></button>
         </div>
     </form>
 </div>

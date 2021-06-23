@@ -158,7 +158,11 @@ def excursion_todas(request):
 
 def buscar(request):
 
+	busqueda = request.GET.get("busqueda")
+
 	context = {
+		'excursiones': models.Excursión.objects.filter(nombre__icontains=busqueda)
+	} if busqueda else {
 		'excursiones': models.Excursión.objects.all()
 	}
 
