@@ -46,12 +46,10 @@ class App extends Component {
               <Route path="/buscar">
                 <Buscar />
               </Route>
-              <Route path="/excursion">
+              <Route path="/excursiones">
                 <Excursiones/>
               </Route>
-              <Route path="/excursion/:id">
-                <Excursion/>
-              </Route>
+              <Route path="/excursion/:id" component={Excursion}/>
             </Switch>
           </BrowserRouter>
 

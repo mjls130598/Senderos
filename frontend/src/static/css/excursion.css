@@ -1,15 +1,10 @@
-.foto{
+.container.foto{
     width: 50%;
     margin-bottom: 3%;
 }
 
 .tags-likes{
     margin-bottom: 3%;
-}
-
-.botones > *{
-    float: right;
-    margin: 1%;
 }
 
 p.likes{
@@ -20,19 +15,6 @@ p.likes{
     margin-bottom: 3%;
 }
 
-.comentario{
+.jumbotron.comentario{
     padding: 2%;
-}
-
-.nuevo-comentario{
-    margin-bottom: 3%;
-}
-
-.nuevo-comentario > label{
-    font-weight: bold;
-}
-
-.nuevo-comentario > input{
-    width: 100%;
-    margin-bottom: 2%;
 }

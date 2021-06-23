@@ -23,7 +23,7 @@ class Cards extends Component {
 					<Card.Title>{this.props.excursion.nombre}</Card.Title>
 					<Card.Subtitle className="mb-2 text-muted">{tags}</Card.Subtitle>
 					<Card.Text>{this.props.excursion.descripción}</Card.Text>
-					<a href={"/excursion/" + this.props.excursion.id} 
+					<a href={"/excursion/" + this.props.excursion.id + "/"} 
 						className="btn btn-primary enlace-excursion">Más detalle</a>
 				</Card.Body>
 			</Card>
