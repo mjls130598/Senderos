@@ -12,6 +12,7 @@ class Buscar extends Component {
 		super(props);
 
 		this.state = {
+			excursiones_mostrar: [],
 			excursiones: []
 		};
 	}
@@ -24,18 +25,50 @@ class Buscar extends Component {
 			.then(res => res.json())
 			.then(res => {
 						console.log(res)
-						this.setState({excursiones:res})   // Se cambia el state y re-renderiza
+						this.setState({excursiones:res, excursiones_mostrar: res})   // Se cambia el state y re-renderiza
 					})
 			.catch(error => {
 				alert('Error '+ error)
 			})
 	}
 
+	handleBuscar = (busqueda) => {
+
+		console.log(busqueda);
+
+		if(busqueda){
+			let excursiones_bus = this.state.excursiones.map( excursion =>{
+				let reg = new RegExp(busqueda, "i");
+				if(excursion.nombre.match(reg)){
+					return excursion;
+				}
+			})
+
+			this.setState({excursiones_mostrar: excursiones_bus});
+		}
+
+		else{
+			this.setState({excursiones_mostrar: this.state.excursiones});
+		}
+
+	}
+
+	handleChange(event) {
+		console.log(event.target.value)
+		this.handleBuscar(event.target.value) // Pasar hacia arriba el valor
+	}	
+
 	render() {		
 
-		const listaExcursiones = this.state.excursiones.map(ex =>{
-			return (<Cards excursion = {ex}/>);
-		})
+		var listaExcursiones = ""
+
+		console.log("numero de excursiones" + this.state.excursiones_mostrar.length)
+
+		if(this.state.excursiones_mostrar.length > 0){
+			listaExcursiones = this.state.excursiones_mostrar.map(ex =>{
+				return (<Cards excursion = {ex}/>);
+			})
+		}
 
 		return (  
 			<div>
@@ -45,7 +78,7 @@ class Buscar extends Component {
 				<Container className="jumbotron buscador">
 					<Form className="buscador-formulario">
 						<div className="input-group mb-3">
-							<Form.Control type="text" placeholder="Término de búsqueda" aria-label="Término de búsqueda" aria-describedby="buscador"/>
+							<Form.Control type="text" placeholder="Término de búsqueda" aria-label="Término de búsqueda" aria-describedby="buscador" onChange={this.handleChange.bind(this)}/>
 							<select className="btn-secondary">
 								<option>Municipio</option>
 								<option>Alcudia</option>
