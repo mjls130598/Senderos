@@ -1,10 +1,13 @@
 import logo from './static/images/logo.gif';
 import diputacion from './static/images/diputacion.png';
-import './App.css';
 import './static/css/base.css';
 import { Navbar, Container, Nav, Jumbotron, Image } from 'react-bootstrap';
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import Buscar from './components/Buscar';
+import Excursiones from './components/Excursiones';
+import Excursion from './components/Excursion';
 
 class App extends Component {
   constructor(props) {
@@ -33,7 +36,7 @@ class App extends Component {
           </Navbar>
         </header>
 
-        <body>
+        <div>
           <Jumbotron className="text-center">
             <h4 className="font-weight-bold">Turismo rural, activo y de naturaleza</h4>
           </Jumbotron>
@@ -44,15 +47,15 @@ class App extends Component {
                 <Buscar />
               </Route>
               <Route path="/excursion">
-                <Excursiones />
+                <Excursiones/>
               </Route>
               <Route path="/excursion/:id">
-                <Excursion />
+                <Excursion/>
               </Route>
             </Switch>
           </BrowserRouter>
 
-        </body>
+        </div>
 
         <footer className="bg-dark text-white">
           <Container footer>

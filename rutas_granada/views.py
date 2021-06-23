@@ -227,7 +227,7 @@ class ExcursionesView(APIView):
 	permission_classes = [IsAdminUser | ReadOnly]
 
 	def get(self, request):
-		return Response({"excursiones": ExcursiónModelSerializer(models.Excursión.objects.all(), many=True).data})
+		return Response(ExcursiónModelSerializer(models.Excursión.objects.all(), many=True).data)
 
 	def post(self, request):
 		serializer = ExcursiónModelSerializer(data=request.data)

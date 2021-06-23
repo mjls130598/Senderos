@@ -1,4 +1,4 @@
-.text-center.jumbotron{
+.jumbotron.text-center, .jumbotron.buscador{
     padding:1.5%;
 }
 
