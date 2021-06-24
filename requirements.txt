@@ -5,3 +5,4 @@ djangorestframework>=3.1,<4.0
 django-rest-framework-mongoengine>=3.4,<5
 djangorestframework_simplejwt>=4.6, <5
 django-cors-headers
+gunicorn
