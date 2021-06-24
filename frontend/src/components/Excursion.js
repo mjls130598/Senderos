@@ -18,7 +18,7 @@ class Excursion extends Component {
 
 		const { match: { params } } = this.props;
 
-		const url = 'http://localhost:8000/api/excursion/' + params.id + '/'
+		const url = 'http://localhost:90/api/excursion/' + params.id + '/'
 
 		// una promise, que devuelve otra promise
 		fetch(url)

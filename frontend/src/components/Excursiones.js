@@ -15,7 +15,7 @@ class Excursiones extends Component {
 	}
 
 	componentDidMount() {
-		const url = 'http://localhost:8000/api/excursiones/'
+		const url = 'http://localhost:90/api/excursiones/'
 
 		// una promise, que devuelve otra promise
 		fetch(url)
