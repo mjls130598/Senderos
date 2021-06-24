@@ -4,11 +4,11 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - 80:80
+      - 90:80
     # directorios para el archivo de configuración y archivos del static
     volumes:
       - ./conf:/etc/nginx/conf.d
-      - ./web/static:/var/www/static 
+      - ./static:/var/www/static 
     depends_on:
       - web
   web:
@@ -17,7 +17,7 @@ services:
     command: gunicorn mi_sitio_web.wsgi:application --bind 0.0.0.0:8000
     # command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./web:/web
+      - .:/code
 
   mongo:
     image: mongo:4.2
