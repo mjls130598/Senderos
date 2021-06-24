@@ -17,3 +17,4 @@ Se va a intentar realizar una página similar a la página [TurGranada](https://
 * [**Tarea 6**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea6.md): REST API.
 * [**Tarea 7**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea7.md): JQuery y AJAX.
 * [**Tarea 8**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea8.md): React.
+* [**Tarea 9**](https://github.com/mjls130598/Senderos/blob/main/Seguimiento/Tarea9.md): Despliegue.
